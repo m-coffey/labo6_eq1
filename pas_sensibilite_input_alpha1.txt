@@ -1,0 +1,14 @@
+naca0012
+oper
+visc
+6000000.0
+iter200
+pacc
+pas_sensibilite_results_alpha1.txt
+
+aseq
+-4.0
+4.0
+0.2
+
+quit
