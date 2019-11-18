@@ -383,7 +383,43 @@ f.write('quit\n')
 f.close()  
 os.system('xfoil.exe < ' + sensibilite_input_alpha_max_re_max)
 
-pas_sensibilite_data_re2 = np.loadtxt(pas_sensibilite_results_re2, skiprows=12)
+sensibilite_min_min = np.loadtxt(sensibilite_results_alpha_min_re_min, skiprows=12)
+sensibilite_min_max = np.loadtxt(sensibilite_results_alpha_min_re_max, skiprows=12)
+sensibilite_max_min = np.loadtxt(sensibilite_results_alpha_max_re_min, skiprows=12)
+sensibilite_max_max = np.loadtxt(sensibilite_results_alpha_max_re_max, skiprows=12)
+
+d_cl_d_alpha=(sensibilite_max_min[:,1]-sensibilite_min_min[:,1])/(d_alpha*2)
+d_cd_d_alpha=(sensibilite_max_min[:,2]-sensibilite_min_min[:,2])/(d_alpha*2)
+d_cl_d_re=(sensibilite_max_max[:,1]-sensibilite_max_min[:,1])/(d_re*2)
+d_cd_d_re=(sensibilite_max_max[:,2]-sensibilite_max_min[:,2])/(d_re*2)
+
+alpha=np.arange(0,18,1)
 
 
-for 
+fig1= plt.figure()
+plt.plot(alpha, d_cl_d_alpha)
+plt.xlabel("alpha")
+plt.ylabel("d_CL/d_alpha")
+plt.title('Sensibilité du CL/d_alpha en fonction de alpha ')
+plt.show()
+    
+fig2= plt.figure()
+plt.plot(alpha, d_cd_d_alpha)
+plt.xlabel("alpha")
+plt.ylabel("d_CD/d_alpha")
+plt.title('Sensibilité du CD/d_alpha en fonction de alpha')
+plt.show()    
+
+fig3= plt.figure()
+plt.plot(alpha, d_cl_d_re)
+plt.xlabel("alpha")
+plt.ylabel("d_CL/d_re")
+plt.title('Sensibilité du CL/d_Re en fonction de alpha')
+plt.show()
+    
+fig4= plt.figure()
+plt.plot(alpha, d_cd_d_re)
+plt.xlabel("alpha")
+plt.ylabel("d_CD/d_re")
+plt.title('Sensibilité du CD/d_Re en fonction de alpha')
+plt.show()   
