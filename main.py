@@ -3,8 +3,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 naca_profil = '0012'
-n_panel_nodes = 140
+n_panel_nodes = 160
 te_le_density_ratio = .2
+p = .4
+n_iterations = 2000
 
 
 alpha_start = 0
@@ -24,8 +26,6 @@ n_re_sensibilite = 15
 pas_sensibilite_re = 50000
 re_sensibilite = np.arange(re-n_re_sensibilite*pas_sensibilite_re, re+n_re_sensibilite*pas_sensibilite_re, pas_sensibilite_re)
 
-
-n_iterations = 2000
 
 # Creation des noms pour les fichier d'input et de resultats pour determiner le pas de discretisation
 pas_sensibilite_results_alpha1 = 'pas_sensibilite_results_alpha1.txt'
@@ -52,6 +52,7 @@ f = open(pas_sensibilite_input_alpha1, 'w')
 f.write('naca' + naca_profil + '\n')
 f.write('ppar \n')
 f.write('n' + str(n_panel_nodes) + '\n')
+f.write('p' + str(p) + '\n')
 f.write('t' + str(te_le_density_ratio) + '\n')
 f.write('\n\n')
 f.write('oper\n')
@@ -71,6 +72,7 @@ f = open(pas_sensibilite_input_alpha2, 'w')
 f.write('naca' + naca_profil + '\n')
 f.write('ppar \n')
 f.write('n' + str(n_panel_nodes) + '\n')
+f.write('p' + str(p) + '\n')
 f.write('t' + str(te_le_density_ratio) + '\n')
 f.write('\n\n')
 f.write('oper\n')
@@ -119,28 +121,28 @@ fig1= plt.figure()
 plt.plot(delta_alpha , sensibilite_cl_alpha1)
 plt.xlabel("d_alpha")
 plt.ylabel("d_CL/d_alpha")
-plt.title('Variation de la sensibilité cl en fonction du pas de alpha utilisé autour de alpha=0 ')
+plt.title('Variation de la sensibilité du CL en fonction du pas de alpha autour de alpha = 0')
 plt.show()
     
 fig2= plt.figure()
 plt.plot(delta_alpha , sensibilite_cl_alpha2)
 plt.xlabel("d_alpha")
 plt.ylabel("d_CL/d_alpha")
-plt.title('Variation de la sensibilité  cl en fonction du pas de alpha utilisé autour de alpha=15 ')
+plt.title('Variation de la sensibilité du CL en fonction du pas de alpha autour de alpha = 15')
 plt.show()    
 
 fig3= plt.figure()
 plt.plot(delta_alpha , sensibilite_cd_alpha1)
 plt.xlabel("d_alpha")
 plt.ylabel("d_CD/d_alpha")
-plt.title('Variation de la sensibilité cd en fonction du pas de alpha utilisé autour de alpha=0 ')
+plt.title('Variation de la sensibilité du CD en fonction du pas de alpha autour de alpha = 0')
 plt.show()
     
 fig4= plt.figure()
 plt.plot(delta_alpha , sensibilite_cd_alpha2)
 plt.xlabel("d_alpha")
 plt.ylabel("d_CD/d_alpha")
-plt.title('Variation de la sensibilité  cd en fonction du pas de alpha utilisé autour de alpha=15 ')
+plt.title('Variation de la sensibilité du CD en fonction du pas de alpha autour de alpha = 15')
 plt.show()   
 
 # Creation des noms de fichiers textes pour le pas en Reynolds
@@ -155,6 +157,11 @@ sensibilite_data_cd_re1 = np.zeros(len(re_sensibilite))
 sensibilite_data_cl_re2 = np.zeros(len(re_sensibilite)) 
 sensibilite_data_cd_re2 = np.zeros(len(re_sensibilite)) 
 
+n_panel_nodes = 160
+te_le_density_ratio = .2
+p = 1
+n_iterations = 2000
+
 for r in re_sensibilite:
     if os.path.exists(pas_sensibilite_results_re1):
         os.remove(pas_sensibilite_results_re1)
@@ -167,6 +174,7 @@ for r in re_sensibilite:
     f.write('naca' + naca_profil + '\n')
     f.write('ppar \n')
     f.write('n' + str(n_panel_nodes) + '\n')
+    f.write('p' + str(p) + '\n')
     f.write('t' + str(te_le_density_ratio) + '\n')
     f.write('\n\n')
     f.write('oper\n')
@@ -186,6 +194,7 @@ for r in re_sensibilite:
     f.write('naca' + naca_profil + '\n')
     f.write('ppar \n')
     f.write('n' + str(n_panel_nodes) + '\n')
+    f.write('p' + str(p) + '\n')
     f.write('t' + str(te_le_density_ratio) + '\n')
     f.write('\n\n')
     f.write('oper\n')
@@ -231,31 +240,150 @@ for i in range(n_pas_sensibilite_alpha):
 fig1= plt.figure()
 plt.plot(delta_re , sensibilite_cl_re1)
 plt.xlabel("d_alpha")
-plt.ylabel("d_CL/d_re")
-plt.title('Variation de la sensibilité cl en fonction du pas de alpha utilisé autour de alpha=0 ')
+plt.ylabel("d_CL/d_Re")
+plt.title('Variation de la sensibilité du CL en fonction du pas de Re autour de alpha = 0')
 plt.show()
     
 fig2= plt.figure()
 plt.plot(delta_re , sensibilite_cl_re2)
 plt.xlabel("d_alpha")
 plt.ylabel("d_CL/d_re")
-plt.title('Variation de la sensibilité  cl en fonction du pas de alpha utilisé autour de alpha=15 ')
+plt.title('Variation de la sensibilité du CL en fonction du pas de Re autour de alpha = 15')
 plt.show()    
 
 fig3= plt.figure()
 plt.plot(delta_re , sensibilite_cd_re1)
 plt.xlabel("d_alpha")
 plt.ylabel("d_CD/d_re")
-plt.title('Variation de la sensibilité cd en fonction du pas de alpha utilisé autour de alpha=0 ')
+plt.title('Variation de la sensibilité du CD en fonction du pas de Re autour de alpha = 0')
 plt.show()
     
 fig4= plt.figure()
 plt.plot(delta_re , sensibilite_cd_re2)
 plt.xlabel("d_alpha")
 plt.ylabel("d_CD/d_re")
-plt.title('Variation de la sensibilité  cd en fonction du pas de alpha utilisé autour de alpha=15 ')
+plt.title('Variation de la sensibilité du CD en fonction du pas de Re autour de alpha = 15')
 plt.show()   
- 
+
+d_alpha = 0.2
+d_re = 5e5
+
+sensibilite_results_alpha_min_re_min = 'sensibilite_results_alpha_min_re_min.txt'
+sensibilite_input_alpha_min_re_min = 'sensibilite_input_alpha_min_re_min.txt'
+
+sensibilite_results_alpha_min_re_max = 'sensibilite_results_alpha_min_re_max.txt'
+sensibilite_input_alpha_min_re_max = 'sensibilite_input_alpha_min_re_max.txt'
+
+sensibilite_results_alpha_max_re_min = 'sensibilite_results_alpha_max_re_min.txt'
+sensibilite_input_alpha_max_re_min = 'sensibilite_input_alpha_max_re_min.txt'
+
+sensibilite_results_alpha_max_re_max = 'sensibilite_results_alpha_max_re_max.txt'
+sensibilite_input_alpha_max_re_max = 'sensibilite_input_alpha_max_re_max.txt'
+
+n_panel_nodes = 180
+te_le_density_ratio = .2
+p = 1
+n_iterations = 2000
+
+if os.path.exists(sensibilite_results_alpha_min_re_min):
+    os.remove(sensibilite_results_alpha_min_re_min)
         
+if os.path.exists(sensibilite_results_alpha_min_re_max):
+    os.remove(sensibilite_results_alpha_min_re_max)
+    
+if os.path.exists(sensibilite_results_alpha_max_re_min):
+    os.remove(sensibilite_results_alpha_max_re_min)
+    
+if os.path.exists(sensibilite_results_alpha_max_re_max):
+    os.remove(sensibilite_results_alpha_max_re_max)
         
-        
+
+# Alpha min, Re min
+f = open(sensibilite_input_alpha_min_re_min, 'w')
+f.write('naca' + naca_profil + '\n')
+f.write('ppar \n')
+f.write('n' + str(n_panel_nodes) + '\n')
+f.write('p' + str(p) + '\n')
+f.write('t' + str(te_le_density_ratio) + '\n')
+f.write('\n\n')
+f.write('oper\n')
+f.write('visc\n')
+f.write(str(re-d_re) + '\n')
+f.write('iter' + str(n_iterations) + '\n')
+f.write('pacc\n')
+f.write(sensibilite_results_alpha_min_re_min + '\n')
+f.write('\n')
+f.write('aseq\n' + str(alpha_start - d_alpha) + '\n' + str(alpha_end - d_alpha) + '\n' + str(alpha_step) + '\n')
+f.write('quit\n')
+f.close() 
+os.system('xfoil.exe < ' + sensibilite_input_alpha_min_re_min)
+
+n_panel_nodes = 180
+te_le_density_ratio = .15
+p = .9
+n_iterations = 2000
+
+# Alpha min, Re max
+f = open(sensibilite_input_alpha_min_re_max, 'w')
+f.write('naca' + naca_profil + '\n')
+f.write('ppar \n')
+f.write('n' + str(n_panel_nodes) + '\n')
+f.write('p' + str(p) + '\n')
+f.write('t' + str(te_le_density_ratio) + '\n')
+f.write('\n\n')
+f.write('oper\n')
+f.write('visc\n')
+f.write(str(re+d_re) + '\n')
+f.write('iter' + str(n_iterations) + '\n')
+f.write('pacc\n')
+f.write(sensibilite_results_alpha_min_re_max + '\n')
+f.write('\n')
+f.write('aseq\n' + str(alpha_start - d_alpha) + '\n' + str(alpha_end - d_alpha) + '\n' + str(alpha_step) + '\n')
+f.write('quit\n')
+f.close()  
+os.system('xfoil.exe < ' + sensibilite_input_alpha_min_re_max)
+
+# Alpha max, Re min
+f = open(sensibilite_input_alpha_max_re_min, 'w')
+f.write('naca' + naca_profil + '\n')
+f.write('ppar \n')
+f.write('n' + str(n_panel_nodes) + '\n')
+f.write('p' + str(p) + '\n')
+f.write('t' + str(te_le_density_ratio) + '\n')
+f.write('\n\n')
+f.write('oper\n')
+f.write('visc\n')
+f.write(str(re-d_re) + '\n')
+f.write('iter' + str(n_iterations) + '\n')
+f.write('pacc\n')
+f.write(sensibilite_results_alpha_max_re_min + '\n')
+f.write('\n')
+f.write('aseq\n' + str(alpha_start + d_alpha) + '\n' + str(alpha_end + d_alpha) + '\n' + str(alpha_step) + '\n')
+f.write('quit\n')
+f.close()
+os.system('xfoil.exe < ' + sensibilite_input_alpha_max_re_min)
+
+# Alpha max, Re max
+f = open(sensibilite_input_alpha_max_re_max, 'w')
+f.write('naca' + naca_profil + '\n')
+f.write('ppar \n')
+f.write('n' + str(n_panel_nodes) + '\n')
+f.write('p' + str(p) + '\n')
+f.write('t' + str(te_le_density_ratio) + '\n')
+f.write('\n\n')
+f.write('oper\n')
+f.write('visc\n')
+f.write(str(re+d_re) + '\n')
+f.write('iter' + str(n_iterations) + '\n')
+f.write('pacc\n')
+f.write(sensibilite_results_alpha_max_re_max + '\n')
+f.write('\n')
+f.write('aseq\n' + str(alpha_start + d_alpha) + '\n' + str(alpha_end + d_alpha) + '\n' + str(alpha_step) + '\n')
+f.write('quit\n')
+f.close()  
+os.system('xfoil.exe < ' + sensibilite_input_alpha_max_re_max)
+
+pas_sensibilite_data_re2 = np.loadtxt(pas_sensibilite_results_re2, skiprows=12)
+
+
+for 
