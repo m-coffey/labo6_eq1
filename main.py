@@ -119,28 +119,28 @@ fig1= plt.figure()
 plt.plot(delta_alpha , sensibilite_cl_alpha1)
 plt.xlabel("d_alpha")
 plt.ylabel("d_CL/d_alpha")
-plt.title('Variation de la sensibilité en fonction du pas de alpha utilisé autour de alpha=0 ')
+plt.title('Variation de la sensibilité cl en fonction du pas de alpha utilisé autour de alpha=0 ')
 plt.show()
     
 fig2= plt.figure()
 plt.plot(delta_alpha , sensibilite_cl_alpha2)
 plt.xlabel("d_alpha")
 plt.ylabel("d_CL/d_alpha")
-plt.title('Variation de la sensibilité en fonction du pas de alpha utilisé autour de alpha=15 ')
+plt.title('Variation de la sensibilité  cl en fonction du pas de alpha utilisé autour de alpha=15 ')
 plt.show()    
 
 fig3= plt.figure()
 plt.plot(delta_alpha , sensibilite_cd_alpha1)
 plt.xlabel("d_alpha")
 plt.ylabel("d_CD/d_alpha")
-plt.title('Variation de la sensibilité en fonction du pas de alpha utilisé autour de alpha=0 ')
+plt.title('Variation de la sensibilité cd en fonction du pas de alpha utilisé autour de alpha=0 ')
 plt.show()
     
 fig4= plt.figure()
 plt.plot(delta_alpha , sensibilite_cd_alpha2)
 plt.xlabel("d_alpha")
 plt.ylabel("d_CD/d_alpha")
-plt.title('Variation de la sensibilité en fonction du pas de alpha utilisé autour de alpha=15 ')
+plt.title('Variation de la sensibilité  cd en fonction du pas de alpha utilisé autour de alpha=15 ')
 plt.show()   
 
 # Creation des noms de fichiers textes pour le pas en Reynolds
@@ -212,10 +212,50 @@ for r in re_sensibilite:
     sensibilite_data_cd_re2[i_re] = pas_sensibilite_data_re2[2] 
     
     i_re += 1
+
+
+
+delta_re = np.arange(pas_sensibilite_re, (n_pas_sensibilite_alpha + 1) * pas_sensibilite_re, pas_sensibilite_re)
+    
+sensibilite_cl_re1 = np.zeros((n_pas_sensibilite_alpha))
+sensibilite_cl_re2 = np.zeros((n_pas_sensibilite_alpha))
+sensibilite_cd_re1 = np.zeros((n_pas_sensibilite_alpha))
+sensibilite_cd_re2 = np.zeros((n_pas_sensibilite_alpha))
         
+for i in range(n_pas_sensibilite_alpha):
+    sensibilite_cl_re1[-(i+1)] = (sensibilite_data_cl_re1[-(i+1)] - sensibilite_data_cl_re1[i]) / (2 * delta_re[-(i+1)])
+    sensibilite_cl_re2[-(i+1)] = (sensibilite_data_cl_re2[-(i+1)] - sensibilite_data_cl_re2[i]) / (2 * delta_re[-(i+1)])
+    sensibilite_cd_re1[-(i+1)] = (sensibilite_data_cd_re1[-(i+1)] - sensibilite_data_cd_re1[i]) / (2 * delta_re[-(i+1)])
+    sensibilite_cd_re2[-(i+1)] = (sensibilite_data_cd_re2[-(i+1)] - sensibilite_data_cd_re2[i]) / (2 * delta_re[-(i+1)])
         
-        
-        
+fig1= plt.figure()
+plt.plot(delta_re , sensibilite_cl_re1)
+plt.xlabel("d_alpha")
+plt.ylabel("d_CL/d_re")
+plt.title('Variation de la sensibilité cl en fonction du pas de alpha utilisé autour de alpha=0 ')
+plt.show()
+    
+fig2= plt.figure()
+plt.plot(delta_re , sensibilite_cl_re2)
+plt.xlabel("d_alpha")
+plt.ylabel("d_CL/d_re")
+plt.title('Variation de la sensibilité  cl en fonction du pas de alpha utilisé autour de alpha=15 ')
+plt.show()    
+
+fig3= plt.figure()
+plt.plot(delta_re , sensibilite_cd_re1)
+plt.xlabel("d_alpha")
+plt.ylabel("d_CD/d_re")
+plt.title('Variation de la sensibilité cd en fonction du pas de alpha utilisé autour de alpha=0 ')
+plt.show()
+    
+fig4= plt.figure()
+plt.plot(delta_re , sensibilite_cd_re2)
+plt.xlabel("d_alpha")
+plt.ylabel("d_CD/d_re")
+plt.title('Variation de la sensibilité  cd en fonction du pas de alpha utilisé autour de alpha=15 ')
+plt.show()   
+ 
         
         
         
