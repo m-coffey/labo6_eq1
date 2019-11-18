@@ -1,0 +1,16 @@
+naca0012
+ppar 
+n140
+t0.2
+
+
+oper
+visc
+6700000.0
+iter2000
+pacc
+pas_sensibilite_results_re2.txt
+
+alfa15
+
+quit

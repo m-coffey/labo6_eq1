@@ -1,14 +1,19 @@
 naca0012
+ppar 
+n140
+t0.2
+
+
 oper
 visc
 6000000.0
-iter200
+iter2000
 pacc
 pas_sensibilite_results_alpha1.txt
 
 aseq
--4.0
-4.0
-0.2
+-1.5
+1.5
+0.05
 
 quit
